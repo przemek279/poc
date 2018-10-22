@@ -2,7 +2,9 @@ clearvars;
 close all;
 clc;
 
-I = imread('parrot.bmp');
+%I = imread('parrot.bmp');
+%I = imread('chessboard.bmp');
+I = imread('clock.bmp');
 figure;
 imshow(I);
 
@@ -20,8 +22,8 @@ xStep = XX/nXX;
 yStep = YY/nYY;
 for ii = (0:nYY-1)
     for jj = (0:nXX-1)
-        i = round(ii * xStep);
-        j = round(jj * yStep);
+        i = round(ii * yStep);
+        j = round(jj * xStep);
         
         if i > YY -1
             i = YY -1;
@@ -31,7 +33,7 @@ for ii = (0:nYY-1)
             j = XX -1;
         end
         
-        nI(jj+1,ii+1) = I(j+1, i+1);
+        nI(ii+1,jj+1) = I(i+1, j+1);
     end
 end
 

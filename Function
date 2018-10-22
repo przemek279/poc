@@ -1,0 +1,5 @@
+zeros(X,Y) - tworzy macierz o wymiarach X na Y wypełnioną zerami
+imread('img.png') - wczytujee obraz
+imwrite() - zapisuje obra
+figure - nowe okno na obraz/wykres
+imshow(I) - wyświetla obraz wczytany w matlab
