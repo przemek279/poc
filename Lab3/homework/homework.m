@@ -2,15 +2,14 @@ clearvars;
 close all;
 clc;
 
-
 I = imread('100zloty.jpg');
 Igray = rgb2gray(I);
 
-%b(1) - najmniejznaczące bity, b(8) - najbardziej znaczące bity
-b = zeros(1,5);
+%b(1) - najmłodszy bit, b(8) - najstarszy bit
+b(:,:,8) = zeros(847,1661);
 
 for i = 1:8
-    b(i) = double(bitget(Igray,i));
+    b(:,:,i) = (bitget(Igray,i));
 end
 
 figure;
@@ -20,18 +19,32 @@ title('Originał');
     
 for i = 2:9
     subplot(3,3,i);
-    imshow(b(i-1));
-    title('bit ' + (i-1));
+    imshow(b(:,:,i-1));
+    title(strcat('bit ', num2str(i-1)));
 end
 
-Ibinary = uint8(cat(8,b(1),b(2),b(3),b(4),b(5),b(6),b(7),b(8)));
+Ibinary = uint8(cat(3,b(:,:,1),b(:,:,2),b(:,:,3),b(:,:,4),b(:,:,5),b(:,:,6),b(:,:,7),b(:,:,8)));
 
 for i = 1:8
-   b(i) =  Ibinary(:,:,i)*(power(2, i-1));
+   b(:,:,i) =  uint8(Ibinary(:,:,i)*(2^(i-1)));
 end
 
-figure;
-imshow(b(8)+b(7));
 
 figure;
-imshow(b(8)+b(7)+b(6)+b(5)+b(4));
+subplot(2,2,1);
+imshow(Igray);
+title('Originał');
+
+subplot(2,2,2);
+imshow(uint8(b(:,:,8)+b(:,:,7)));
+title('bit 7+8');
+
+subplot(2,2,3);
+imshow(uint8(b(:,:,8)+b(:,:,7)+b(:,:,6)));
+title('bit 6+7+8');
+
+subplot(2,2,4);
+imshow(uint8(b(:,:,8)+b(:,:,7)+b(:,:,6)+b(:,:,5)+b(:,:,4)));
+title('bit 4+5+6+7+8');
+
+
