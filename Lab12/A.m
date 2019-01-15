@@ -13,7 +13,7 @@ imshow(I);
 L = 1;
 N = 100;
 id = zeros(N);
-lut;
+
 for i = 1:N
     id(i) = i;
 end
@@ -36,7 +36,7 @@ for i = 2:YY
                   I(i,j) = mini;
               else
                   id = union(mini, maxi, id);
-                  I(i,j) = id(L);
+                  I(i,j) = mini;
               end
           end
        end
@@ -46,22 +46,27 @@ end
 subplot(2,2,2);
 imshow(label2rgb(I));
 
-I2 = I;
 lut = id;
-for i = id.'
+for i = 1:N
     lut(i) = root(i,id);
 end
 
 for i = 1:YY
    for j = 1:XX
-        if(I(i,j) > 0
-        
+        if(I(i,j) > 0)
+             I(i,j) = lut(I(i,j));      
         end
    end
 end
 
 subplot(2,2,3);
 imshow(imread('ccl1Result.png'));
+
+subplot(2,2,4);
+imshow(I,[]);
+
+figure;
+histogram(I);
 
 function index = root(index, id)
     while id(index) ~= index
